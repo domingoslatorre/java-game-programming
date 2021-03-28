@@ -11,7 +11,6 @@ public class SimpleKeyboardExample extends JFrame implements Runnable {
     private volatile boolean running;
     private Thread gameThread;
     private SimpleKeyboardInput keys;
-    private boolean space;
 
     public SimpleKeyboardExample() {
         keys = new SimpleKeyboardInput();
@@ -35,13 +34,10 @@ public class SimpleKeyboardExample extends JFrame implements Runnable {
     }
 
     public void gameLoop() {
-        if(keys.keyDown(KeyEvent.VK_SPACE)) {
-            if( !space ) {
-                System.out.println("VK_SPACE");
-            }
-            space = true;
-        } else {
-            space = false;
+        keys.poll();
+
+        if(keys.keyDownOnce(KeyEvent.VK_SPACE)) {
+            System.out.println("VK_SPACE");
         }
         if(keys.keyDown(KeyEvent.VK_UP)) {
             System.out.println("VK_UP");
